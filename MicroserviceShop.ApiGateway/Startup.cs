@@ -34,6 +34,8 @@ namespace MicroserviceShop.ApiGateway
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroserviceShop.ApiGateway", Version = "v1" });
             });
+            services.AddSwaggerForOcelot(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +45,12 @@ namespace MicroserviceShop.ApiGateway
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MicroserviceShop.ApiGateway v1"));
+
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MicroserviceShop.ApiGateway v1"));
+                app.UseSwaggerForOcelotUI(opt =>
+                {
+                    opt.PathToSwaggerGenerator = "/swagger/docs";
+                });
             }
 
             app.UseHttpsRedirection();
@@ -57,7 +64,11 @@ namespace MicroserviceShop.ApiGateway
                 endpoints.MapControllers();
             });
 
+
+
             app.UseOcelot().Wait();
+
+
         }
     }
 }

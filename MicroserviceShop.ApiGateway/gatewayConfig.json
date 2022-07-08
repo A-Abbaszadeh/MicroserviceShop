@@ -11,7 +11,8 @@
         }
       ],
       "UpstreamPathTemplate": "/product",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "product"
     },
     // category service
     {
@@ -24,7 +25,30 @@
         }
       ],
       "UpstreamPathTemplate": "/category",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "category"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "product",
+      "Config": [
+        {
+          "Name": "Product API",
+          "Version": "v1",
+          "Url": "https://localhost:44356/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "category",
+      "Config": [
+        {
+          "Name": "Category API",
+          "Version": "v1",
+          "Url": "https://localhost:44342/swagger/v1/swagger.json"
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {
