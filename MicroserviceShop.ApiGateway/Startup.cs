@@ -46,7 +46,6 @@ namespace MicroserviceShop.ApiGateway
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
 
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MicroserviceShop.ApiGateway v1"));
                 app.UseSwaggerForOcelotUI(opt =>
                 {
                     opt.PathToSwaggerGenerator = "/swagger/docs";
