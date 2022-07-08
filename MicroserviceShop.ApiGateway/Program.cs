@@ -21,6 +21,13 @@ namespace MicroserviceShop.ApiGateway
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    config
+                    .SetBasePath(context.HostingEnvironment.ContentRootPath)
+                    .AddJsonFile("gatewayConfig.json", optional: false, reloadOnChange: true);
+                })
+                .ConfigureLogging(logging => logging.AddSystemdConsole());
     }
 }
