@@ -1,3 +1,4 @@
+using MicroserviceShop.ProductService.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,9 @@ namespace MicroserviceShop.ProductService
         {
 
             services.AddControllers();
+
+            services.AddTransient<IProductServices, ProductServices>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroserviceShop.ProductService", Version = "v1" });
