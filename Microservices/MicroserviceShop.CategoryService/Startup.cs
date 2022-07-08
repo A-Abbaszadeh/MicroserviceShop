@@ -1,3 +1,4 @@
+using MicroserviceShop.CategoryService.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,9 @@ namespace MicroserviceShop.CategoryService
         {
 
             services.AddControllers();
+
+            services.AddTransient<ICategoryServices, CategoryServices>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroserviceShop.CategoryService", Version = "v1" });
