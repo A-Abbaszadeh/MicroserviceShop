@@ -26,8 +26,5 @@
       "UpstreamPathTemplate": "/category",
       "UpstreamHttpMethod": [ "GET" ]
     }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:5021"
-  }
+  ]
 }
