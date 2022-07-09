@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace MicroserviceShop.IdentityService.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
     {
         private readonly IJwtAuthenticationService _jwtAuthenticationService;
 
@@ -22,6 +24,7 @@ namespace MicroserviceShop.IdentityService.Controllers
             return Ok("This is for test");
         }
 
+        [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] User user)
         {
@@ -31,7 +34,5 @@ namespace MicroserviceShop.IdentityService.Controllers
 
             return Ok(jwtToken);
         }
-
-
     }
 }
