@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MicroserviceShop.IdentityService.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly IJwtAuthenticationService _jwtAuthenticationService;

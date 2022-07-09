@@ -1,5 +1,6 @@
 using MicroserviceShop.IdentityService.Application;
 using MicroserviceShop.IdentityService.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,10 +9,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MicroserviceShop.IdentityService
@@ -35,10 +38,27 @@ namespace MicroserviceShop.IdentityService
             });
 
 
+            var key = Configuration["JWTConfig:key"];
+
+            services.AddAuthentication(option =>
+            {
+                option.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(option =>
+            {
+                option.RequireHttpsMetadata = false;
+                option.SaveToken = true;
+                option.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                };
+            });
 
             services.AddTransient<IUserRepository, UserRepository>();
 
-            var key = Configuration["JWTConfig:key"];
             services.AddTransient<IJwtAuthenticationService>(x => 
                 new JwtAuthenticationService(x.GetRequiredService<IUserRepository>(),key));
         }
