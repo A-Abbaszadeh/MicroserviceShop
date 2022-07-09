@@ -26,6 +26,10 @@
       ],
       "UpstreamPathTemplate": "/category",
       "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "SwaggerKey": "category"
     }
   ],
