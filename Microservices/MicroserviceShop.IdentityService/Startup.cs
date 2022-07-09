@@ -34,6 +34,8 @@ namespace MicroserviceShop.IdentityService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroserviceShop.IdentityService", Version = "v1" });
             });
 
+
+
             services.AddTransient<IUserRepository, UserRepository>();
 
             var key = Configuration["JWTConfig:key"];
@@ -55,7 +57,7 @@ namespace MicroserviceShop.IdentityService
 
             app.UseRouting();
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

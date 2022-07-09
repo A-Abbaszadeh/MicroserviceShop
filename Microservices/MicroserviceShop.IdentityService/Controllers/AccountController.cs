@@ -1,10 +1,12 @@
 ﻿using MicroserviceShop.IdentityService.Application;
 using MicroserviceShop.IdentityService.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroserviceShop.IdentityService.Controllers
 {
+    //[Authorize]
     public class AccountController : Controller
     {
         private readonly IJwtAuthenticationService _jwtAuthenticationService;
