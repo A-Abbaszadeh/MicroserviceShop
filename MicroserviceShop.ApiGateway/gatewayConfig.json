@@ -1,5 +1,19 @@
 {
   "Routes": [
+    // identity service
+    {
+      "DownstreamPathTemplate": "/api/authenticate",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44389
+        }
+      ],
+      "UpstreamPathTemplate": "/authenticate",
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "authenticate"
+    },
     // product service
     {
       "DownstreamPathTemplate": "/api/product",
@@ -34,6 +48,16 @@
     }
   ],
   "SwaggerEndPoints": [
+    {
+      "Key": "authenticate",
+      "Config": [
+        {
+          "Name": "Identity API",
+          "Version": "v1",
+          "Url": "https://localhost:44389/swagger/v1/swagger.json"
+        }
+      ]
+    },
     {
       "Key": "product",
       "Config": [

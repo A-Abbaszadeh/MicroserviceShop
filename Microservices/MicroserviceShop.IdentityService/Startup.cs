@@ -40,7 +40,10 @@ namespace MicroserviceShop.IdentityService
 
             var key = Configuration["JWTConfig:key"];
 
-            services.AddAuthentication(option =>
+            //The following code is used when the authentication operation
+            //is performed in MicroserviceShop.IdentityService.
+
+            /*services.AddAuthentication(option =>
             {
                 option.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -55,7 +58,7 @@ namespace MicroserviceShop.IdentityService
                     ValidateIssuer = false,
                     ValidateAudience = false,
                 };
-            });
+            });*/
 
             services.AddTransient<IUserRepository, UserRepository>();
 
