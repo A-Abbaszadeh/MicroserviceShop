@@ -1,3 +1,4 @@
+using MicroserviceShop.IdentityService.Application;
 using MicroserviceShop.IdentityService.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,10 @@ namespace MicroserviceShop.IdentityService
             });
 
             services.AddTransient<IUserRepository, UserRepository>();
+
+            var key = Configuration["JWTConfig:key"];
+            services.AddTransient<IJwtAuthenticationService>(x => 
+                new JwtAuthenticationService(x.GetRequiredService<IUserRepository>(),key));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
