@@ -12,6 +12,15 @@
       ],
       "UpstreamPathTemplate": "/authenticate",
       "UpstreamHttpMethod": [ "POST" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+        ],
+        "EnableRateLimiting": true,
+        "Period": "3s",
+        "Limit": 1,
+        "PeriodTimespan": 2,
+        "HttpStatusCode": 429
+      },
       "SwaggerKey": "authenticate"
     },
     // product service
@@ -26,6 +35,15 @@
       ],
       "UpstreamPathTemplate": "/product",
       "UpstreamHttpMethod": [ "GET" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+        ],
+        "EnableRateLimiting": true,
+        "Period": "3s",
+        "Limit": 1,
+        "PeriodTimespan": 2,
+        "HttpStatusCode": 429
+      },
       "SwaggerKey": "product"
     },
     // category service
@@ -43,6 +61,15 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+        ],
+        "EnableRateLimiting": true,
+        "Period": "3s",
+        "Limit": 1,
+        "PeriodTimespan": 2,
+        "HttpStatusCode": 429
       },
       "SwaggerKey": "category"
     }
