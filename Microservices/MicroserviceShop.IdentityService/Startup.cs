@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,15 +36,38 @@ namespace MicroserviceShop.IdentityService
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroserviceShop.IdentityService", Version = "v1" });
+                UseTokenForAuthenticationInSwager(c);
             });
-
-
 
             services.AddTransient<IUserRepository, UserRepository>();
 
             var key = Configuration["JWTConfig:key"];
             services.AddTransient<IJwtAuthenticationService>(x => 
                 new JwtAuthenticationService(x.GetRequiredService<IUserRepository>(),key));
+        }
+
+        private static void UseTokenForAuthenticationInSwager(SwaggerGenOptions c)
+        {
+            var securrity = new OpenApiSecurityScheme
+            {
+                Name = "JWT Auth",
+                Description = "Enter Your Token",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                Reference = new OpenApiReference
+                {
+                    Id = JwtBearerDefaults.AuthenticationScheme,
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
+
+            c.AddSecurityDefinition(securrity.Reference.Id, securrity);
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { securrity, new string[]{ } }
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
