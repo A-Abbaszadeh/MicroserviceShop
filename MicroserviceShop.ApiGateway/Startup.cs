@@ -16,6 +16,7 @@ using Ocelot.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Ocelot.Cache.CacheManager;
 
 namespace MicroserviceShop.ApiGateway
 {
@@ -36,7 +37,8 @@ namespace MicroserviceShop.ApiGateway
 
             services.AddControllers();
 
-            services.AddOcelot();
+            services.AddOcelot()
+                .AddCacheManager(setting => setting.WithDictionaryHandle());
 
             AddSwagger(services);
         }

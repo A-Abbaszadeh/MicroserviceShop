@@ -44,6 +44,10 @@
         "PeriodTimespan": 2,
         "HttpStatusCode": 429
       },
+      "FileCacheOptions": {
+        "TtlSeconds": 30,
+        "Region": "product"
+      },
       "SwaggerKey": "product"
     },
     // category service
