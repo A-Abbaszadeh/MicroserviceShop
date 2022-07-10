@@ -38,30 +38,10 @@ namespace MicroserviceShop.IdentityService
             });
 
 
-            var key = Configuration["JWTConfig:key"];
-
-            //The following code is used when the authentication operation
-            //is performed in MicroserviceShop.IdentityService.
-
-            /*services.AddAuthentication(option =>
-            {
-                option.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
-                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(option =>
-            {
-                option.RequireHttpsMetadata = false;
-                option.SaveToken = true;
-                option.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                };
-            });*/
 
             services.AddTransient<IUserRepository, UserRepository>();
 
+            var key = Configuration["JWTConfig:key"];
             services.AddTransient<IJwtAuthenticationService>(x => 
                 new JwtAuthenticationService(x.GetRequiredService<IUserRepository>(),key));
         }

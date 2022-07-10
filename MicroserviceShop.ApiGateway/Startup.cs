@@ -31,8 +31,28 @@ namespace MicroserviceShop.ApiGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region JWT Bearer
-            var secret = "This key must be complicated!";
+            var secret = Configuration["JWTConfig:key"];
+            AddJwtBearerAuthenticatication(services, secret);
+
+            services.AddControllers();
+
+            services.AddOcelot();
+
+            AddSwagger(services);
+        }
+
+        private void AddSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroserviceShop.ApiGateway", Version = "v1" });
+            });
+
+            services.AddSwaggerForOcelot(Configuration);
+        }
+
+        private static void AddJwtBearerAuthenticatication(IServiceCollection services, string secret)
+        {
             var key = Encoding.ASCII.GetBytes(secret);
 
             services.AddAuthentication(option =>
@@ -51,16 +71,6 @@ namespace MicroserviceShop.ApiGateway
                     ValidateAudience = false,
                 };
             });
-            #endregion
-
-            services.AddControllers();
-            services.AddOcelot();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MicroserviceShop.ApiGateway", Version = "v1" });
-            });
-            services.AddSwaggerForOcelot(Configuration);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
